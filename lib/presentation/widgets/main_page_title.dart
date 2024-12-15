@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+// Заголовок на главной странице
+
 class MainPageTitle extends StatelessWidget {
   const MainPageTitle({
     super.key,

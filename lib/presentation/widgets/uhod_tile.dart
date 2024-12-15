@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+// Это тайл с контурами косметики для окна с тестом в главной странице
+
 class UhodTile extends StatelessWidget {
   const UhodTile({
     super.key,

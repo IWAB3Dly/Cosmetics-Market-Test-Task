@@ -1,6 +1,8 @@
 import 'package:cosmetics_marketplace/presentation/widgets/filter_tile.dart';
 import 'package:flutter/material.dart';
 
+// Страница с фильтрами из ТЗ
+
 class FilterPage extends StatefulWidget {
   const FilterPage({super.key});
 
@@ -21,9 +23,12 @@ class _FilterPageState extends State<FilterPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  GestureDetector(
-                    onTap: () => Navigator.of(context).pop(),
-                    child: Icon(Icons.arrow_back_ios_rounded)
+                  MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    child: GestureDetector(
+                      onTap: () => Navigator.of(context).pop(),
+                      child: const Icon(Icons.arrow_back_ios_rounded)
+                    ),
                   ),
                   const Text(
                     "Фильтры",

@@ -1,6 +1,8 @@
 import 'package:cosmetics_marketplace/presentation/widgets/catalog_menu_text.dart';
 import 'package:flutter/material.dart';
 
+// 1 Страница каталога из ТЗ
+
 class CatalogMainPage extends StatelessWidget {
   const CatalogMainPage({
     super.key,
@@ -12,6 +14,7 @@ class CatalogMainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Column(

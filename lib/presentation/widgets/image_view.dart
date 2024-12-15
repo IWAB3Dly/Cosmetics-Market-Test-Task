@@ -1,4 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
+// Это PageView с главной страницы - виджет в котором пролистываем картинки
 
 class ImageView extends StatefulWidget {
   const ImageView({super.key});
@@ -30,6 +33,7 @@ class _ImageViewState extends State<ImageView> {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 359,
+      width: MediaQuery.of(context).size.width,
       child: Stack(
         children: [
           Positioned(
@@ -40,11 +44,13 @@ class _ImageViewState extends State<ImageView> {
               height: 359,
               child: PageView.builder(
                 onPageChanged: (value) => setState(() {
-                  currentIndex =  value % imageAssets.length;
+                  currentIndex =  value;
                 }),
                 controller: _imageController,
                 itemBuilder: (context, index) { 
-                  final actualIndex = index % imageAssets.length;
+                  final actualIndex = (kIsWeb)? 
+                    currentIndex % imageAssets.length:
+                    index % imageAssets.length;
                   return Image.asset(
                     alignment: const Alignment(0, -0.2),
                     imageAssets[actualIndex],
@@ -75,7 +81,7 @@ class _ImageViewState extends State<ImageView> {
           ),
           SafeArea(
             child: Padding(
-              padding: const EdgeInsets.only(left: 12),
+              padding: const EdgeInsets.all(12),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: List.generate(
@@ -86,10 +92,9 @@ class _ImageViewState extends State<ImageView> {
                     height: 8,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: currentIndex == index ? 
+                      color: currentIndex%imageAssets.length == index ? 
                        const Color(0xFFd9d9d9): 
-                       const Color(0xFFd9d9d9).withOpacity(0.5) 
-                       ,
+                       const Color(0xFFd9d9d9).withOpacity(0.5),
                     ),
                   ),
                 ),
@@ -143,16 +148,16 @@ class _ImageViewState extends State<ImageView> {
                             ),
                           ],
                         ),
-                        Spacer(),
+                        const Spacer(),
                         TextButton(
                           onPressed: () => print("Перешли"),
                           style: ElevatedButton.styleFrom(
-                            padding: EdgeInsets.symmetric(horizontal: 11),
-                            backgroundColor: Color(0x00000000),
+                            padding: const EdgeInsets.symmetric(horizontal: 11),
+                            backgroundColor: const Color(0x00000000),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(5)
                             ),
-                            side: BorderSide(width: 1, color: Colors.white)
+                            side: const BorderSide(width: 1, color: Colors.white)
                           ), 
                           child: const Text(
                             "Перейти к акции",
@@ -170,7 +175,30 @@ class _ImageViewState extends State<ImageView> {
                 ),
               ),
             ) 
-          )
+          ),
+          (kIsWeb)?
+          Center(
+            child: Row(
+              children: [
+                IconButton(
+                  onPressed: () => setState(() => currentIndex--), 
+                  icon: const Icon(
+                    Icons.arrow_back_ios_rounded,
+                    color: Colors.white,
+                  ) 
+                ),
+                const Expanded(child: SizedBox.shrink()),
+                IconButton(
+                  onPressed: () => setState(() => currentIndex++), 
+                  icon: const Icon(
+                    Icons.arrow_forward_ios_rounded,
+                    color: Colors.white,
+                  ) 
+                ),
+              ],
+            ),
+          ):
+          const SizedBox.shrink()
         ],
       ),
     );

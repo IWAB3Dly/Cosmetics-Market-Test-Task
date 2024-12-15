@@ -24,11 +24,15 @@ class SkinTypePage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  GestureDetector(
-                    onTap: navigateToPreviousPage,
-                    child: const Icon(Icons.arrow_back_ios_rounded),
+                  MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    child: GestureDetector(
+                      onTap: navigateToPreviousPage,
+                      child: const Icon(Icons.arrow_back_ios_rounded),
+                    ),
                   ),
                   const Text(
                     "По типу кожи",
@@ -42,9 +46,9 @@ class SkinTypePage extends StatelessWidget {
                     Icons.arrow_back_ios_rounded,
                     color: Colors.white,
                   ),
-          
                 ],
               ),
+              
               const SizedBox(height: 24 ),
 
               CatalogMenuText(

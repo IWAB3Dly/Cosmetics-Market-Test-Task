@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+// Тайл для страницы с фильтрами
+
 class FilterTile extends StatelessWidget {
   const FilterTile({
     super.key,

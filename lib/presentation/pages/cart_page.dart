@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+// Страница "Корзина", ее в ТЗ нет, поэтому тут просто текст
+
 class CartPage extends StatelessWidget {
   const CartPage({super.key});
 

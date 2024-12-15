@@ -2,11 +2,14 @@ import 'dart:ui';
 
 import 'package:cosmetics_marketplace/presentation/widgets/catalog_tile.dart';
 import 'package:cosmetics_marketplace/presentation/widgets/image_view.dart';
+import 'package:cosmetics_marketplace/presentation/widgets/list_view_horizontal.dart';
 import 'package:cosmetics_marketplace/presentation/widgets/main_page_button.dart';
 import 'package:cosmetics_marketplace/presentation/widgets/main_page_title.dart';
 import 'package:cosmetics_marketplace/presentation/widgets/product_tile.dart';
 import 'package:cosmetics_marketplace/presentation/widgets/uhod_tile.dart';
 import 'package:flutter/material.dart';
+
+// Главная страница из ТЗ
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -16,6 +19,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
+  late final List<ScrollController> scrollControllers;
 
   List<Widget> catalogTiles = const [
     CatalogTile(assetName: "assets/images/chrs1.png", catalogName: "Для лица"),
@@ -62,6 +67,20 @@ class _HomePageState extends State<HomePage> {
     UhodTile(assetName: "assets/images/uhod_4.png", catalogName: "Дневной крем"),
   ];
 
+ @override
+  void initState() {
+    super.initState();
+    scrollControllers = List.generate(3, (index) => ScrollController());  
+}
+
+  @override
+  void dispose() {
+    for (var controller in scrollControllers) {
+      controller.dispose();
+    }
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,18 +96,12 @@ class _HomePageState extends State<HomePage> {
                   const SizedBox(height: 24),
                   SizedBox(
                     height: 140,
-                    child: GestureDetector(
-                      onHorizontalDragUpdate: (details){},
-                      child: ScrollConfiguration(
-                        behavior: ScrollBehavior(),
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: catalogTiles.length,
-                          itemBuilder:(context, index) {
-                            return catalogTiles[index];
-                          }, 
-                        ),
-                      ),
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: catalogTiles.length,
+                      itemBuilder:(context, index) {
+                        return catalogTiles[index];
+                      }, 
                     ),
                   ),
                   const MainPageTitle(
@@ -101,13 +114,10 @@ class _HomePageState extends State<HomePage> {
                   ),
                   SizedBox(
                     height: 290,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: productTiles1.length*4,
-                      itemBuilder:(context, index) {
-                        return productTiles1[index % productTiles1.length];
-                      }, 
-                    ),
+                    child: ListViewHorizontal(
+                      scrollController: scrollControllers[0], 
+                      productTileList: productTiles1
+                    )
                   ),
                   const SizedBox(height: 32),
                   SizedBox(
@@ -196,13 +206,10 @@ class _HomePageState extends State<HomePage> {
 
                   SizedBox(
                     height: 290,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: productTiles2.length * 4,
-                      itemBuilder:(context, index) {
-                        return productTiles2[index % productTiles2.length];
-                      }, 
-                    ),
+                    child: ListViewHorizontal(
+                      scrollController: scrollControllers[1], 
+                      productTileList: productTiles2
+                    )
                   ),
 
                   const SizedBox(height: 24),
@@ -235,13 +242,10 @@ class _HomePageState extends State<HomePage> {
                   const SizedBox(height: 24),
                   SizedBox(
                     height: 290,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: productTiles3.length*4,
-                      itemBuilder:(context, index) {
-                        return productTiles3[index % productTiles3.length];
-                      }, 
-                    ),
+                    child: ListViewHorizontal(
+                      scrollController: scrollControllers[2], 
+                      productTileList: productTiles3
+                    )
                   ),
                 ],
               ),
@@ -252,12 +256,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-
-// class WebScrollBehavior extends ScrollBehavior {
-//   @override
-//   Set<PointerDeviceKind> get dragDevices => {
-//         PointerDeviceKind.touch,
-//         PointerDeviceKind.mouse,
-//         PointerDeviceKind.trackpad,
-//       };
-// }

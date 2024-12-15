@@ -1,6 +1,8 @@
-import 'package:cosmetics_marketplace/presentation/pages/filter_page.dart';
+import 'package:cosmetics_marketplace/presentation/pages/catalog_pages/filter_page.dart';
 import 'package:cosmetics_marketplace/presentation/widgets/product_tile.dart';
 import 'package:flutter/material.dart';
+
+// Страница "Средства для..." из ТЗ
 
 class SkinProductsPage extends StatefulWidget {
   const SkinProductsPage({
@@ -41,9 +43,12 @@ class _SkinProductsPageState extends State<SkinProductsPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  GestureDetector(
-                    onTap: widget.navigateToPreviousPage,
-                    child: const Icon(Icons.arrow_back_ios_new_rounded)
+                  MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    child: GestureDetector(
+                      onTap: widget.navigateToPreviousPage,
+                      child: const Icon(Icons.arrow_back_ios_new_rounded)
+                    ),
                   ),
                   const SizedBox(height: 12),
                   const Text(
@@ -66,14 +71,17 @@ class _SkinProductsPageState extends State<SkinProductsPage> {
                           fontSize: 18  
                         ),
                       ),
-                      GestureDetector(
-                        onTap: () => Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => const FilterPage(),)
-                        ),
-                        child: Image.asset(
-                          "assets/images/settings_icon.png",
-                          height: 24,
-                          width: 24,
+                      MouseRegion(
+                        cursor: SystemMouseCursors.click,
+                        child: GestureDetector(
+                          onTap: () => Navigator.of(context).push(
+                            MaterialPageRoute(builder: (context) => const FilterPage(),)
+                          ),
+                          child: Image.asset(
+                            "assets/images/settings_icon.png",
+                            height: 24,
+                            width: 24,
+                          ),
                         ),
                       )
                     ],
@@ -115,24 +123,24 @@ class _SkinProductsPageState extends State<SkinProductsPage> {
             ),
             const SizedBox(height: 12),
             Expanded(
-              child: ListView.builder(
-                itemCount: (productTiles.length/2).ceil(),
-                itemBuilder:(context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 12),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        productTiles[index*2],
-                        (productTiles.length>index*2+1)?
-                          productTiles[index*2+1]:
-                          const SizedBox(width: 190),
-                      ],
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  int crossAxisCount = (constraints.maxWidth / 200).floor(); 
+                  return GridView.builder(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: crossAxisCount,
+                      mainAxisSpacing: 8,
+                      crossAxisSpacing: 8,
+                      childAspectRatio: 0.6,
                     ),
+                    itemCount: productTiles.length * 4,
+                    itemBuilder: (context, index) {
+                      return productTiles[index % productTiles.length];
+                    },
                   );
-                }, 
+                },
               ),
-            )
+            ),
           ],
         ),
       ),

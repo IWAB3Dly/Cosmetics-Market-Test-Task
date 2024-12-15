@@ -1,8 +1,10 @@
 import 'package:cosmetics_marketplace/presentation/pages/cart_page.dart';
-import 'package:cosmetics_marketplace/presentation/pages/catalog_page.dart';
+import 'package:cosmetics_marketplace/presentation/pages/catalog_pages/catalog_page.dart';
 import 'package:cosmetics_marketplace/presentation/pages/home_page.dart';
 import 'package:cosmetics_marketplace/presentation/pages/profile_page.dart';
 import 'package:flutter/material.dart';
+
+// в MainPage лежит навигация между страниц при помощи BottomNavBar
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -31,6 +33,7 @@ class _MainPageState extends State<MainPage> {
     return Scaffold(
       body: _pages[currentPageIndex],
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.white,
         type: BottomNavigationBarType.fixed,
         currentIndex: currentPageIndex,
         selectedItemColor: Colors.black,

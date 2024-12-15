@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+// тайл с главной страницы который самый первый, не знаю что ещё про него сказать
+
 class CatalogTile extends StatelessWidget {
   const CatalogTile({
     super.key,

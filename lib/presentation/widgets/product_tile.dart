@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+// Тайл, отображающий продукт
+
 class ProductTile extends StatelessWidget {
   const ProductTile({
     super.key,

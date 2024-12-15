@@ -1,7 +1,9 @@
-import 'package:cosmetics_marketplace/presentation/pages/catalog_main_page.dart';
-import 'package:cosmetics_marketplace/presentation/pages/skin_products_page.dart';
-import 'package:cosmetics_marketplace/presentation/pages/skin_type_page.dart';
+import 'package:cosmetics_marketplace/presentation/pages/catalog_pages/catalog_main_page.dart';
+import 'package:cosmetics_marketplace/presentation/pages/catalog_pages/skin_products_page.dart';
+import 'package:cosmetics_marketplace/presentation/pages/catalog_pages/skin_type_page.dart';
 import 'package:flutter/material.dart';
+
+// Страница, которая переключается между страницами каталога
 
 class CatalogPage extends StatefulWidget {
   const CatalogPage({super.key});

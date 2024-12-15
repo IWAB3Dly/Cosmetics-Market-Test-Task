@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+// Страница профиля, ее в ТЗ нет, поэтому тут просто текст
+
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
 
